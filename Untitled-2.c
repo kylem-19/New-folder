@@ -25,23 +25,23 @@ int main (void)
         printf("Is the weather nice? \n");
         scanf(" %c", &decision);
 
-        if (decision == 'Y')
-        {
-            printf("Weekend plans - ride bike in the park!\n");
-        }
-        else
-        {
-            printf("Oh, so the weather is bad.  Do you have enough money to go shopping? \n");
-            scanf(" %c", &decision);
+    if (decision == 'Y')
+    {
+        printf("Weekend plans - ride bike in the park!\n");
+    }
+    else
+    {
+        printf("Oh, so the weather is bad.  Do you have enough money to go shopping? \n");
+        scanf(" %c", &decision);
 
-            if (decision == 'Y')
-            {
-                printf("Weekend plans - go shopping - don't spend too much!! \n");
-            }
-            else
-            {
-                printf("Weekend plans - stay home and play video games!! \n");
-            }
-        }
+    if (decision == 'Y')
+    {
+        printf("Weekend plans - go shopping - don't spend too much!! \n");
+    }
+    else
+    {
+        printf("Weekend plans - stay home and play video games!! \n");
+    }
+    }
     }
 }
