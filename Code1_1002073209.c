@@ -14,19 +14,14 @@ int main (void)
     printf("Did your friends visit? \n");
     
     char decision;
-    scanf(" %c", &decision);
+    scanf("%c", &decision);
 
     if (decision == 'Y')
     {
        printf("Weekend plans - have fun at the movies with your friends! \n"); 
     }
-    else
-    {
-        printf("Your friends weren't able to visit so you need to make alternate plans \n");
-        printf("Is the weather nice? \n");
-
-        scanf(" %c", &decision);
-    }
+    
+    scanf("%c", &decision);
     if (decision == 'Y')
     {
         printf("Weekend plans - ride bike in the park! \n");
@@ -34,8 +29,8 @@ int main (void)
     else
     {
         printf("Oh, so the weather is bad. Do you have enough money to go shopping? \n");
-        scanf(" %c", &decision);
     }
+    scanf("%c", &decision);
     if (decision == 'Y')
     {
         printf("Weekend plans - go shopping - don't spend too much! \n");
@@ -44,4 +39,6 @@ int main (void)
     {
         printf("Weekend plans - stay home and play video games!");
     }
+
+    return 0;
 }
