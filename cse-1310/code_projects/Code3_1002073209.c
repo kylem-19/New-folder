@@ -23,7 +23,7 @@ int menu()
     printf("5.  Can we time travel?\n\n");
     printf("Enter a choice between 1 and 5 : ");
     scanf(" %d", &x);
-    printf("\n");
+    printf("\n\n");
 
     while (x > 5 || x < 1)
     {
