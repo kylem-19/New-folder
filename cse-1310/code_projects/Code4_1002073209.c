@@ -4,9 +4,11 @@
 
 int main()
 {
-    char myChar;
+    char prompt;
     printf("Enter the character you want to use ");
-    scanf("%c", myChar);
+    scanf("%c", prompt);
+
+    
 }
 int GetValue()
 {
