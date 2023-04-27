@@ -1,93 +1,98 @@
 #include <stdio.h>
+
 #define MAX_ROWS 9
 #define MAX_COLS 9
 #define TICKET_LIMIT 4
 
-void FillMovieTheater(char map[MAX_ROWS][MAX_COLS], int rows, int seats)
+void FillMovieTheater(char MovieTheater[MAX_ROWS][MAX_COLS], int rows, int cols)
 {
-    for (int i = 0; i < rows; i++)
+    for (int i = 0; i < rows; i++) 
     {
-        for (int  j = 0; i < seats; j++)
+        for (int j = 0; j < cols; j++) 
         {
-            map[i][j] = 'O';
-        }   
+            MovieTheater[i][j] = 'O';
+        }
     }
 }
 
-void PrintSeatMap(char map[MAX_ROWS][MAX_COLS], int rows, int seats)
+
+void PrintSeatMap(char MovieTheater[MAX_ROWS][MAX_COLS], int rows, int seats)
 {
-    printf("\n    ");
-    for (int i = 0; i < seats; i++)
+     printf("          ");
+    for (int i = 1; i <= seats; i++) 
     {
-        printf("%d ", i);
+        printf("Seat %d ", i);
     }
     printf("\n");
 
-    for (int i = 0; i < rows; i++)
+    for (int i = 0; i < rows; i++) 
     {
-        printf("%c ", 'A' + 1);
-        for (int j = 0; i < seats; j++)
+        printf("Row %c ", 65 + i);
+        for (int j = 0; j < seats; j++)
         {
-            printf("%c ", map[i][j]);
-        }   
+            printf("%6c ", MovieTheater[i][j]);
+        }
+        printf("\n");
     }
 }
 
-int IsSeatSold(char map[MAX_ROWS][MAX_COLS], int rows, int cols)
+int IsSeatSold(char MovieTheater[MAX_ROWS][MAX_COLS], int row, int col)
 {
-    int seatcheck;
-
-    if (map[rows][cols] == 'X')
+    if (MovieTheater[row][col] == 'X')
     {
-        seatcheck = 1;
+        return 1;
     }
     else
     {
-        seatcheck = 0;
-        map[rows][cols] = 'X';
+        MovieTheater[row][col] = 'X';
+        return 0;
     }
-    return seatcheck;
+    
 }
 
 int main(void)
-{ 
+{
     char MovieTheater[MAX_ROWS][MAX_COLS];
-    int rows, cols, ticketsBought, ticketsSold;
-    int seatchoice;
+    int mySeat, rows, cols, ticketsSold, ticketsBought;
     char myRow;
+    int arraySeat;
+    int arrayRow;
     do
     {
-        printf("How many rows does your theater have? (1-%d) ", MAX_ROWS);
+        printf("How many rows do you want (1-%d) ", MAX_ROWS);
         scanf("%d", &rows);
 
-        if (rows > MAX_ROWS || rows <= 1)
+        if (rows > MAX_ROWS || rows < 1)
         {
-            printf("Rows must be between 1 and %d. Please reenter. ", MAX_ROWS);
+            printf("Rows must be in range of 1-%d. Please reenter. ", MAX_ROWS);
             scanf("%d", &rows);
         }
+
+        
     } while (rows > MAX_ROWS || rows < 1);
-    
+
     do
     {
-        printf("How many seats are there per row? (1-%d) ", MAX_COLS);
+        printf("How many seats do you want? (1-%d) ", MAX_COLS);
         scanf("%d", &cols);
 
         if (cols > MAX_COLS || cols < 1)
         {
-            printf("Columns must be between 1 and %d. Please reenter.", MAX_COLS);
+            printf("Columns must be in range of 1-%d ", MAX_COLS);
             scanf("%d", &cols);
         }
+        
     } while (cols > MAX_COLS || cols < 1);
-    
-    FillMovieTheater(MovieTheater, rows, cols);
 
+    FillMovieTheater(MovieTheater, rows, cols);
+    
     printf("How many tickets would you like to purchase? (limit %d) ", TICKET_LIMIT);
     scanf("%d", &ticketsBought);
 
     while (ticketsBought > TICKET_LIMIT || ticketsBought < 0)
     {
-        printf("This is a special showing - limit of %d tickets per purchase.\n", TICKET_LIMIT);
-        printf("How many tickets would you like to purchase? (limit %d) ", TICKET_LIMIT);
+        printf("This is a special showing - limit of 4 tickets per purchase.\n");
+        printf("How many tickets would you like to purhcase? (limit %d) ", TICKET_LIMIT);
         scanf("%d", &ticketsBought);
     }
 
@@ -100,15 +105,32 @@ int main(void)
         while (ticketsSold < ticketsBought)
         {
             PrintSeatMap(MovieTheater, rows, cols);
-
-            printf("Enter seat choice by entering the row and seat ");
+            printf("\n");
+            printf("Enter a seat choice by entering a row and seat \n");
             printf("Please pick a seat ");
-            scanf("%c%d", &myRow, &seatchoice);
+            scanf(" %c%d", &myRow, &mySeat);
 
+            arrayRow = myRow - 'A' + 1;
+            arraySeat = mySeat - 1;
 
-
+            if (arrayRow < 0 || arrayRow >= rows || arraySeat < 0 || arraySeat >= cols)
+            {
+                printf("\nThis seat is not inside the theater.\n");
+            }
+            else if (IsSeatSold(MovieTheater, arrayRow, arraySeat))
+            {
+                printf("Sorry, that seat has already been sold.\n");
+            }
+            else
+            {
+                MovieTheater[arrayRow][arraySeat] = 'X';
+                ticketsSold ++;
+            }
+            
         }
-        
+        printf("Enjoy your movie!");
     }
     
+
+    return 0;
 }
