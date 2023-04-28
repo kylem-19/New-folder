@@ -1,6 +1,9 @@
+<<<<<<< HEAD:code_projects/Code6_1002073209.c
 // Kyle Moore
 // 1002073209
 
+=======
+>>>>>>> 10ce5a33eff46f41b958f4640c260d7774791a8e:cse-1310/code_projects/Code6_1002073209.c
 #include <stdio.h>
 
 #define MAX_ROWS 9
@@ -81,7 +84,11 @@ int main(void)
 
         if (cols > MAX_COLS || cols < 1)
         {
+<<<<<<< HEAD:code_projects/Code6_1002073209.c
             printf("Seats must be in range of 1-%d ", MAX_COLS);
+=======
+            printf("Columns must be in range of 1-%d ", MAX_COLS);
+>>>>>>> 10ce5a33eff46f41b958f4640c260d7774791a8e:cse-1310/code_projects/Code6_1002073209.c
             scanf("%d", &cols);
         }
         
@@ -113,7 +120,11 @@ int main(void)
             printf("Please pick a seat ");
             scanf(" %c%d", &myRow, &mySeat);
 
+<<<<<<< HEAD:code_projects/Code6_1002073209.c
             arrayRow = myRow - 'A';
+=======
+            arrayRow = myRow - 'A' + 1;
+>>>>>>> 10ce5a33eff46f41b958f4640c260d7774791a8e:cse-1310/code_projects/Code6_1002073209.c
             arraySeat = mySeat - 1;
 
             if (arrayRow < 0 || arrayRow >= rows || arraySeat < 0 || arraySeat >= cols)
@@ -131,10 +142,17 @@ int main(void)
             }
             
         }
+<<<<<<< HEAD:code_projects/Code6_1002073209.c
         PrintSeatMap(MovieTheater, rows, cols);
         printf("\n");
         printf("Enjoy your movie!");
         
     }
+=======
+        printf("Enjoy your movie!");
+    }
+    
+
+>>>>>>> 10ce5a33eff46f41b958f4640c260d7774791a8e:cse-1310/code_projects/Code6_1002073209.c
     return 0;
 }
