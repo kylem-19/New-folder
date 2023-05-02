@@ -1,3 +1,6 @@
+// Kyle Moore
+// 1002073209
+
 #include <stdio.h>
 
 #define MAX_ROWS 9
@@ -78,7 +81,7 @@ int main(void)
 
         if (cols > MAX_COLS || cols < 1)
         {
-            printf("Columns must be in range of 1-%d ", MAX_COLS);
+            printf("Seats must be in range of 1-%d ", MAX_COLS);
             scanf("%d", &cols);
         }
         
@@ -110,7 +113,7 @@ int main(void)
             printf("Please pick a seat ");
             scanf(" %c%d", &myRow, &mySeat);
 
-            arrayRow = myRow - 'A' + 1;
+            arrayRow = myRow - 'A';
             arraySeat = mySeat - 1;
 
             if (arrayRow < 0 || arrayRow >= rows || arraySeat < 0 || arraySeat >= cols)
@@ -128,9 +131,10 @@ int main(void)
             }
             
         }
+        PrintSeatMap(MovieTheater, rows, cols);
+        printf("\n");
         printf("Enjoy your movie!");
+        
     }
-    
-
     return 0;
 }
