@@ -63,7 +63,7 @@ void WriteMovieTheater(char MovieTheater[MAX_ROWS][MAX_COLS],int rows, int seats
     printf("Enter the name of your movie theater file ");
     fscanf(outfile, "%s", filename);
 
-    fopen(outfile, "w+");
+    fopen(filename, "w+");
 
     if (outfile == NULL)
     {
@@ -71,7 +71,7 @@ void WriteMovieTheater(char MovieTheater[MAX_ROWS][MAX_COLS],int rows, int seats
         exit(0);
     }
 
-    fprintf(outfile, filename);
+    fprintf(outfile, "%s", filename);
 }
 
 int main(void)
@@ -80,14 +80,14 @@ int main(void)
     int TicketsPurchased, TicketSold, arrayCol, arrayRow, rows, cols;
     char myRow;
     int mySeat;
-    FILE *Handle = {};
+    FILE *Handle = NULL;
     char myFile[] = {};
     char maxRowCol[MAX_ROWS][MAX_COLS] = {};
 
     printf("Enter the name of your Movie Theater file ");
     fscanf(Handle, "%s", myFile);
 
-    fopen(Handle);
+    fopen(myFile, "w+");
 
     if (Handle == NULL)
     {
@@ -95,8 +95,7 @@ int main(void)
         exit(0);
     }
 
-    fscanf(Handle, "%d%d", rows, cols);
-    fgets()
-   
+    fscanf(Handle, "%d%d", &rows, &cols);
+    fgets();
     return 0;
 }
