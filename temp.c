@@ -1,17 +1,6 @@
-#define ROW 100
-#define COL 400
 #include <stdio.h>
 void PrintIt(int My2D[][COL])
 {
-    for (int i = 0; i < ROW; i++)
-    {
-        for (int j = 0; j < COL; j++)
-        {
-            printf("%5d", My2D[i][j]);
-        }
-        printf("\n");
-    }
-}
 
 void FillIt(int my2D[][COL])
 {
