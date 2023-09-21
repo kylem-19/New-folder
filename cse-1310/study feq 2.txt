@@ -1,4 +1,0 @@
-You should know how to call a function and how to create a function. Given a function call, you should be able to create the
-function signature (the first line of the file). Given a function, you should be able to create the function call. You should know
-how to determine if a function has a return value or not.
-
