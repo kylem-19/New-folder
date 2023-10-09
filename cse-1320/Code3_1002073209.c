@@ -14,8 +14,10 @@ int checknumb();
 
 
 
-int checknumb(int card[][5], int realnumb)
+int picknumber(int card[][5], int realnumb)
 {
+    int random_numb[76] = {};
+    int counter;
     for (int i = 0; i < card; i++)
     {
         /* code */
@@ -39,5 +41,6 @@ int main(void)
 {
     int counter;
     int bingocard[5][5] = {};
+    fillcard(bingocard);
     printcard(bingocard);
 }
