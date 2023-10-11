@@ -1,10 +1,12 @@
 // Kyle Moore 1002073209
 #include <stdio.h>
 #include <time.h>
+#include <stdlib.h>
 
-
+#define ROWS 5
+#define COLS 5
 void printcard();
-int fillcard();
+void fillcard();
 int picknumber();
 int checkrow();
 int checkcolumn();
@@ -14,33 +16,56 @@ int checknumb();
 
 
 
-int picknumber(int card[][5], int realnumb)
+int picknumber(int card[ROWS][COLS], int realnumb)
 {
-    int random_numb[76] = {};
-    int counter;
-    for (int i = 0; i < card; i++)
-    {
-        /* code */
-    }
+
     
 }
 
-int fillcard(int card[5][5])
+void fillcard(int card[ROWS][COLS])
 {
-    int bingocard[5][5] = {};
+    int DUP[76] = {0};
+    int end, start;
+    int num = 0;
+    int counter = 0;
 
-
+    for (int i = 1; i < COLS; i++)
+    {
+        num = rand()%15 + (15*COLS)+1;
+        while (i < counter)
+        {
+            if (DUP[i] = num)
+            {
+                num = rand()%15 + (15*COLS)+1;
+                i = 0;
+            }
+            else
+            {
+                i++;
+            }
+            
+        }
+        // DUP[76] += num += card[ROWS][COLS];
+        counter++;
+        i = 0;
+    }
 }
 
-void printcard(int bingo[5][5])
+void printcard(int bingo[ROWS][COLS])
 {
     
 }
 
 int main(void)
 {
+    srand(time(0));
     int counter;
-    int bingocard[5][5] = {};
+    int bingocard[ROWS][COLS] = {};
     fillcard(bingocard);
-    printcard(bingocard);
+
+    while (counter < 75)
+    {
+    
+    }
+    
 }
