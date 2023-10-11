@@ -24,12 +24,12 @@ int picknumber(int card[ROWS][COLS], int realnumb)
 
 void fillcard(int card[ROWS][COLS])
 {
-    int DUP[76] = {0};
+    int DUP[COLS] = {0};
     int end, start;
     int num = 0;
     int counter = 0;
 
-    for (int i = 1; i < COLS; i++)
+    for (int i = 0; i < COLS; i++)
     {
         num = rand()%15 + (15*COLS)+1;
         while (i < counter)
