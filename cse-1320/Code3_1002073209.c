@@ -47,14 +47,9 @@ void fillcard(int card[ROWS][COLS])
         }
         // DUP[76] += num += card[ROWS][COLS];
         counter++;
-        i = 0;
     }
 }
 
-void printcard(int bingo[ROWS][COLS])
-{
-    
-}
 
 int main(void)
 {
