@@ -1,3 +1,4 @@
+// Kyle Moore 1002073209
 #include "DrawTool.h"
 #include <string.h>
 #include <ctype.h>
@@ -13,7 +14,6 @@ int main(void)
     char *token = NULL;
     char *Delimiters = "(),";
     char Lettercmd[21] = {};
-    int letter = 0;
     char userRows[21] = {};
     int Rows = 0;
     char userCols[21] = {};
@@ -21,7 +21,6 @@ int main(void)
     char markspot[21] = {};
     int spotmark = 0;
     char symbol[21] = {};
-    int symbolmark = 0;
 
     InitializeMap(large_array, &user_size);
     PrintInstructions();
@@ -29,7 +28,7 @@ int main(void)
     
     printf("Enter draw command (Enter Q to quit) \n");
     fgets(drawcmd1, 21, stdin);
-    drawcmd1[strlen(drawcmd1) -1] = '\0';
+    
     drawcmd1[0] = toupper(drawcmd1[0]);
     token = strtok(drawcmd1, Delimiters);
     strcpy(Lettercmd,token);
@@ -49,13 +48,46 @@ int main(void)
         spotmark = atoi(markspot);
 
         token = strtok(NULL, Delimiters);
+        if (token == NULL)
+        {
+            token = "X";
+        }
         strcpy(symbol, token);
 
-        DrawLine(large_array, Rows, Cols, Lettercmd[0], spotmark, symbol[0]);
+        if (Lettercmd[0] == 'H' || Lettercmd[0] == 'V')
+        {
+            if (Cols > user_size || Rows > user_size || spotmark > user_size)
+            {
+                printf("The draw command is out of range");
+            }
+            else
+            {
+                DrawLine(large_array, Rows, Cols, Lettercmd[0], spotmark, symbol[0]);
+            }
+        }
 
+        else if (Lettercmd[0] == 'P')
+        {
+            if (Cols > user_size || Rows > user_size)
+            {
+                printf("The draw command is out of range");
+            }
+            else
+            {
+                large_array[Rows][Cols] = symbol[0];
+            }
+        }
+        else if (Lettercmd[0] != 'H' || Lettercmd[0] == 'H' || Lettercmd[0] == 'P')
+        {
+            printf("That draw command is unknown");
+        }
+        
+        PrintMap(large_array, user_size);
+        
         printf("Enter draw command (Enter Q to quit) \n");
         fgets(drawcmd2, 21, stdin);
-        
+        drawcmd2[0] = toupper(drawcmd2[0]);
+        token = strtok(drawcmd2, Delimiters);
+        strcpy(Lettercmd, token);
     }
-
 }
