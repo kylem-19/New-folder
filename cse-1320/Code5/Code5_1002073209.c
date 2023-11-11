@@ -1,5 +1,7 @@
 // Kyle Moore 1002073209
 #include "GameLib.h"
+#include <string.h>
+#include <stdlib.h>
 
 int main(void)
 {
@@ -11,7 +13,11 @@ int main(void)
 	
 	StartGame(Phrase);/* Call StartGame and pass in Phrase */
 	DashIt(Phrase, DashedPhrase);/* Call DashIt and pass in Phrase and DashedPhrase */
-	toupper(Phrase);/* uppercase Phrase */
+	for (i = 0; i < MAX_INPUT; i++)
+	{
+		UpperPhrase[i] = toupper(Phrase[i]);
+	}
+	/* uppercase Phrase */
 	
 	printf("\nHere's the phrase you need to guess\n");
 

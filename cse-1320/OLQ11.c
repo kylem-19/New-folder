@@ -4,15 +4,11 @@
 
 int main(int argc, char argv[])
 {
-    char dog[100] = {};
-    char *example;
-    
-    while (argc >= 3)
-    {
-        strcpy(example, dog[1]);
+    char dog[100] = "efghudhuiogerfhuiobgjinximopsdaop";
+    printf("%c", *(dog+5));
+    printf("%c", *(strpbrk(dog, "gdi")+9));
+    printf("%c", (int)strlen(dog)+65);
+    printf("%d", abs(dog - strstr(dog, "obg")));
 
-        printf("%c", *(example) + atoi(dog[2]));
-        printf("%c", *(example) );
-    }
     
 }
