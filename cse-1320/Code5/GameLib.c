@@ -63,7 +63,7 @@ int GuessALetter(char Phrase[], char DashedPhrase[], char upperPhrase[])
 	printf("\n\nGuess a letter : ");
 	scanf(" %c", &Guess);
 	getchar();
-	toupper(Guess);/* uppercase Guess */
+	Guess = toupper(Guess);/* uppercase Guess */
 
 	FindGuess = strchr(UpperPhraseCopy, Guess);/* Use strchr() to look for Guess in UpperPhraseCopy.  Store the result of strchr() */
 	/* in FindGuess                                                                     */

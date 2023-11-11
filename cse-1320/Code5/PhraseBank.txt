@@ -2,4 +2,4 @@
 char *PhraseBank[] = {"Ra", "Merlin", "Achillies",
                  "Ares", "Horus", "Anubis",
 				 "Odin", "Mercury", "Charon",
-				 "Rama", "Persephone", "Ganesha"};
+				 "Rama", "Persephone", "Ganesha", ""};
