@@ -18,13 +18,11 @@ int main(int argc, char argv[])
 
     if (tempPtr == NULL)
     {
-        return;
+        return 0;
     }
     while (tempPtr != NULL)
     {
         printf("not null -- new list\n");
-        
+
     }
-    
-    
 }
