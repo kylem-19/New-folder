@@ -23,21 +23,21 @@ int main(void)
     // return 0;
 
 
-    //char alpha[] = "Supercalifragilisticexpialidocious";
-    // printf("%c", *(alpha+7));
-    // printf("%c", *(strpbrk(alpha, "dzq")+4));
-    //printf("%c", (int)strlen(alpha)*2);
-    // printf("%d", abs(alpha - strstr(alpha, "list")));
+    char alpha[] = "Supercalifragilisticexpialidocious";
+    printf("%c", *(alpha+7));
+    printf("%c", *(strpbrk(alpha, "dzq")+4));
+    printf("%c", (int)strlen(alpha)*2);
+    printf("%d", abs(alpha - strstr(alpha, "list")));
+printf("\t%ld", strlen(alpha)*2);
 
-
-    struct car
-    {
-        int mph;
-        float price;
-        char model;
-        char body[100];
-    };
-    struct car mycar = {};
+    // struct car
+    // {
+    //     int mph;
+    //     float price;
+    //     char model;
+    //     char body[100];
+    // };
+    // struct car mycar = {};
     
 
 

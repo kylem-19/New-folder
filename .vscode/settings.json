@@ -2,6 +2,7 @@
     "files.associations": {
         "stdlib.h": "c",
         "*.txt": "c",
-        "OLQ12.C": "cpp"
+        "OLQ12.C": "cpp",
+        "stdio.h": "c"
     }
 }
