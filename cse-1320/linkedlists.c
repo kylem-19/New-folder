@@ -2,27 +2,27 @@
 #include <stdlib.h>
 #include <string.h>
 
+
 int main(int argc, char argv[])
 {
-    struct list
+    typedef struct list
     {
-        struct list *ptr;
+        struct list *nextptr;
         int Apple;
         char Banana;
         char Carrots[20];
-    };
-    struct list mylist = {};
+    } mylist;
 
-    char *tempPtr;
-    tempPtr = mylist.ptr;
+    mylist *head = NULL;
+    head = (mylist *)malloc(sizeof(mylist));
 
-    if (tempPtr == NULL)
+    if (head == NULL)
     {
-        return 0;
+        return 1;
     }
-    while (tempPtr != NULL)
-    {
-        printf("not null -- new list\n");
 
-    }
+    head->Apple = 1;
+    head->nextptr = NULL;
+    
 }
+
