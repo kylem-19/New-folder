@@ -1,32 +1,28 @@
 /* ListLib-Template */
 
 #include "ListLib.h"
-void AddDrawCommandToList(char, char[], NODE**)
+void AddDrawCommandToList(char letter, char DrawCommand[], NODE **LinkedListHead)
 {
-    char letter;
-	char drawcmd[20] = {};
+    
 	NODE *TempPtr, *NewNode;
-	NODE **LinkedListHead;
 	/* declare pointers of type NODE named TempPtr and NewNode */
     
 	NewNode = malloc(sizeof(NODE));
+
 	NewNode->Letter = letter;
 	
-	NewNode->DrawCommand = malloc(sizeof(NODE));
-	strcpy(NewNode->DrawCommand, drawcmd);
+	NewNode->DrawCommand = malloc(strlen(DrawCommand)+1);
 	
-	NewNode->next_ptr = *LinkedListHead;
-	*LinkedListHead = NewNode;/* malloc a new node and assign the Letter and the DrawCommand (after mallocing memory for it) */
+	strcpy(NewNode->DrawCommand, DrawCommand);
+	
+	NewNode->next_ptr = NULL;/* malloc a new node and assign the Letter and the DrawCommand (after mallocing memory for it) */
 
-	if (LinkedListHead == NULL)
+	if (*LinkedListHead == NULL)
 	{
-		LinkedListHead = &NewNode;	
+		*LinkedListHead = NewNode;	
 	}
 	else
 	{
-		NewNode = malloc(sizeof(NODE));
-		NewNode->Letter = letter;
-		NewNode->next_ptr = NULL;
 		TempPtr = *LinkedListHead;
 
 		while (TempPtr->next_ptr != NULL)
@@ -45,18 +41,20 @@ NODE*  FindLetter(NODE *LinkedListHead, char letter, char DC[])
 	while(TempPtr != NULL && TempPtr->Letter != letter)/* while traversing the linked list AND the Letter in the node is not the Letter passed in */
 	{
 		TempPtr = TempPtr->next_ptr;
+
+		if (TempPtr != NULL)
+		{
+			strcpy(DC, TempPtr->DrawCommand);
+			return TempPtr->next_ptr;/* copy the DrawCommand from the node into the passed in parameter */
+			/* return the next pointer stored in TempPtr */
+		}
+		else
+		{
+			memset(DC, '\0', sizeof(*DC));
+			return TempPtr;  //Set DC to NULLs to signal that we found all of the nodes for this letter
+			/* return TempPtr */
+		}
 	}
 
-	if (TempPtr != NULL)
-	{
-		strcpy(DC, TempPtr->DrawCommand);
-		return TempPtr->next_ptr;/* copy the DrawCommand from the node into the passed in parameter */
-		/* return the next pointer stored in TempPtr */
-	}
-	else
-	{
-		memset(DC, '\0', sizeof(*DC));
-		return TempPtr;  //Set DC to NULLs to signal that we found all of the nodes for this letter
-		/* return TempPtr */
-	}
+	
 }

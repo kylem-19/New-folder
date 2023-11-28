@@ -3,6 +3,7 @@
         "stdlib.h": "c",
         "*.txt": "c",
         "OLQ12.C": "cpp",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "algorithm": "c"
     }
 }

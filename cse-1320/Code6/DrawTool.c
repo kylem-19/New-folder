@@ -8,15 +8,6 @@ void InitializeMap(char Map[][MAXMAPSIZE], int *MyMapSize)
 	int j, k;
 	char Background = ' ';
 	
-	printf("How big is the array? (Enter a value between 1 and %d) ", MAXMAPSIZE);
-	scanf("%d", MyMapSize);
-
-	while (*MyMapSize < 1 || *MyMapSize > MAXMAPSIZE)
-	{
-		printf("That value is outside of the max bounds of the array.  Please reenter\n\n");
-		printf("How big is the array? (Enter a value between 1 and %d) ", MAXMAPSIZE);
-		scanf("%d", MyMapSize);
-	}
 	
 	printf("What is the background character? ");
 	scanf(" %c", &Background);
