@@ -3,15 +3,11 @@
 #include <ctype.h>
 #include <string.h>
 
-int main(void)
+int main()
 {
-    char array[100] = "Wonder";
-    char array2[20] = {};
-    char ch = 'o';
+    char Banana[20] = {};
+    char Split[] = {"Chocolate"};
 
-    fgets(array2, 10, stdin);
-    printf("%s", array2);
-
-    // *(strchr(array, ch)) = 'a';
-    // printf("%s", array);
+    toupper(strlen(Split)) = Banana; 
+    printf("%s%s", Banana, Split);
 }
