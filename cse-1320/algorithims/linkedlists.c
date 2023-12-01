@@ -3,9 +3,9 @@
 
 
 
-InsertANode();
-DisplayAllNodes();
-CountTheNodes();
+void InsertANode(int, NODE**);
+NODE* DisplayAllNodes();
+int CountTheNodes();
 void DeleteANode(int, NODE**);
 NODE* AddNodeToStart(int, NODE**);
 NODE* AddNodeToEnd(int, NODE**);
@@ -54,6 +54,48 @@ int main(int argc, char argv[])
                 break;
             }
             return 0;       
+}
+
+void InsertANode(int nodenumber, NODE **LinkedListHead)
+{
+    NODE *TempPtr, *NewNode, *PrevPtr;
+    PrevPtr = NULL;
+    TempPtr = LinkedListHead;
+    while (TempPtr != NULL && TempPtr->nodenumber < nodenumber)
+    {
+        PrevPtr = TempPtr;
+        TempPtr = TempPtr->next_ptr;
+    }
+    NewNode = malloc(sizeof(NODE));
+    NewNode->nodenumber = nodenumber;
+    NewNode->next_ptr = TempPtr;
+
+    if (PrevPtr == NULL)
+    {
+        LinkedListHead = NewNode;
+    }
+    else
+    {
+        PrevPtr->next_ptr = NewNode;
+    }
+}
+
+void DisplayAllNodes(NODE *node)
+{
+    int count = 0;
+    NODE *TempPtr;
+    TemPtr = node;
+
+    if (TempPtr == NULL)
+    {
+        printf("empty linked list\n");
+    }
+    else
+    {
+        printf("element %d = %d\n", count, TempPtr->nodenumber);
+        TempPtr =TempPtr->next_ptr;
+        count++;
+    }
 }
 
 
