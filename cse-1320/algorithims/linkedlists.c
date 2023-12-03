@@ -4,7 +4,7 @@
 
 
 void InsertANode(int, NODE**);
-NODE* DisplayAllNodes();
+void  DisplayAllNodes(NODE*);
 int CountTheNodes();
 void DeleteANode(int, NODE**);
 NODE* AddNodeToStart(int, NODE**);
@@ -84,7 +84,7 @@ void DisplayAllNodes(NODE *node)
 {
     int count = 0;
     NODE *TempPtr;
-    TemPtr = node;
+    NODE *TemPtr = node;
 
     if (TempPtr == NULL)
     {
@@ -98,6 +98,13 @@ void DisplayAllNodes(NODE *node)
     }
 }
 
+int CountTheNodes()
+{
+    NODE *TempPtr;
+
+    
+    
+}
 
 void DeleteANode(int nodenumber, NODE **LinkedListHead)
 {
