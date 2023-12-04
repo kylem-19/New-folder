@@ -11,7 +11,7 @@
 
 void PrintReceipts(SNODE **StackTop)
 {
-	SNODE *TempPtr, *NextPtr;
+	SNODE *STempPtr, *SNewNode;
 	/* 
 	   if the StackTop is empty, the print appropriate message - see example output - 
 	   else print out the receipts.  A receipt is one node of the stack and each receipt
@@ -27,8 +27,11 @@ void PrintReceipts(SNODE **StackTop)
 	}
 	else
 	{
-		TempPtr = StackTop;
+		SNewNode->next_ptr = *StackTop;
+		*StackTop = SNewNode;
 	}
+	
+
 
 	
 }
