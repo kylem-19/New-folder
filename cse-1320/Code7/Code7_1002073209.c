@@ -12,6 +12,7 @@
 void PrintReceipts(SNODE **StackTop)
 {
 	SNODE *STempPtr, *SNewNode;
+	char ticket[5];
 	/* 
 	   if the StackTop is empty, the print appropriate message - see example output - 
 	   else print out the receipts.  A receipt is one node of the stack and each receipt
@@ -23,17 +24,17 @@ void PrintReceipts(SNODE **StackTop)
 	*/
 	if (StackTop == NULL)
 	{
-		printf("null stack top\n");
+		printf("stackstop is empty\n");
 	}
 	else
 	{
-		SNewNode->next_ptr = *StackTop;
-		*StackTop = SNewNode;
+		STempPtr = *StackTop;
+		while (STempPtr != NULL)
+		{
+			printf("receipt number: %d\n", STempPtr->ReceiptNumber);
+			printf("movie theater name: %s\n", STempPtr->MovieTheaterName);
+		}
 	}
-	
-
-
-	
 }
 
 BNODE *PickAndDisplayTheater(BNODE *BSTRoot, char MovieTheaterMap[][MAXCOLS], int *MapRow, int *MapCol)
@@ -41,17 +42,31 @@ BNODE *PickAndDisplayTheater(BNODE *BSTRoot, char MovieTheaterMap[][MAXCOLS], in
 	BNODE *MyTheater = NULL;
 	char zip[6] = {};
 	char MyDims[6] = {};
-	
+	char buffer[21];
 	printf("\n\nPick a theater by entering the zipcode\n\n");
 				
 	// Traverse the BST in order and print out the theaters in zip code order - use InOrder()			
-	
+	InOrder(BSTRoot);
+
 	// Prompt for a zip
-
+	printf("Enter zip \n");
+	fgets(buffer, 21, stdin);
 	// Call SearchForBNODE()
-
-	// If theater is not found, then print message
+	SearchForBNODE(MyTheater, buffer);
+	if (MyTheater == NULL)
+	{
+		printf("Could not find that theater\n");
+	}
 	
+	// If theater is not found, then print message
+	else if (MyTheater != NULL)
+	{
+		token = strtok(MyTheater->Dimensions, "x");
+		*MapRow = atoi(token);
+		token = strtok(NULL, "x");
+		*MapCol = atoi(token);
+		ReadMovieTheaterFile(MovieTheaterMap, MyTheater, )
+	}
 	// If theater is found, then tokenize the theater's dimensions and
 	// pass those dimensions and the MovieTheaterMap and the theater's filename
 	// to ReadMovieTheaterFile()
@@ -65,11 +80,39 @@ BNODE *PickAndDisplayTheater(BNODE *BSTRoot, char MovieTheaterMap[][MAXCOLS], in
 
 void ReadFileIntoQueue(FILE *QueueFile, QNODE **QH, QNODE **QT)
 {
+	char *token;
+	char FileLine[20];
+	char FileName[20];
+	while(fgets(FileLine, sizeof(FileLine)-1, QueueFile))
+	{
+		token = (FileLine, " ");
+		strcpy(FileName, token);
+		enQueue(FileName, QH, QT);
+	}
 	//	read the passed in file and calls enQueue for each name in the file
 }
 
 void ReadFileIntoBST(FILE *BSTFile, BNODE **BSTnode)
 {
+	char *token;
+	char FileLine[20];
+	char MTN[20];
+	char ZC[20];
+	char DIM[20]; 
+	char FN[20];
+
+	while(fgets(FileLine, sizeof(FileLine)-1, BSTFile))
+	{
+		token = strtok(FileLine, "|");
+		strcpy(MTN, FileLine);
+		token = strtok(NULL, "|");
+		strcpy(ZC, token);
+		token = strtok(NULL, "|");
+		strcpy(FN, token);
+		token = strtok(NULL, "|");
+		strcpy(DIM, token);
+		AddBSTNode(BSTnode, MTN, ZC, FN, DIM);
+	}
 	//	read the passed in file and tokenize each line and pass the information to AddBSTNode
 }
 
@@ -141,10 +184,18 @@ int main(int argc, char *argv[])
 	get_command_line_parameter(argv, "RECEIPTNUMBER=", arg_value);
 	ReceiptNumber = atoi(arg_value);
 		
-	/* call function to open queuefilename - if it does not open, print message and exit */	
+	queueFile = fopen(queuefilename, "r");
+	if (queueFile == NULL)
+	{
+		exit(0);
+	}	
 
-	/* calll function to open zipfilename - if it does not open, print message and exit */
-
+	zipFile = fopen(zipfilename, "r");
+	if (zipFile == NULL)
+	{
+		exit(0);
+	}
+	
 	ReadFileIntoQueue(queueFile, &QueueHead, &QueueTail);
 	ReadFileIntoBST(zipFile, &BSTRoot);
 	
