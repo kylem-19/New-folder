@@ -115,17 +115,17 @@ void ReadFileIntoBST(FILE *BSTFile, BNODE **BSTnode)
 	char ZC[5] = {};
 	char DIM[100] = {}; 
 	char FN[100] = {};
-	BNODE ReadInFile[100] = {};
 
 	while(fgets(FileLine, sizeof(FileLine)-1, BSTFile))
 	{
 		token = strtok(FileLine, "|");
-		ReadInFile->MovieTheaterName = malloc(strlen(token)*sizeof(char)+1);
-		strcpy(ReadInFile->MovieTheaterName, token);
-		strcpy(MTN, ReadInFile->MovieTheaterName);
+		strcpy(MTN, token);
 		token = strtok(NULL, "|");
-		ReadInFile->ZipCode = malloc(strlen(token)*sizeof(char)+1);
 		strcpy(ZC, token);
+		token = strtok(NULL, "|");
+		strcpy(DIM, token);
+		token = strtok(NULL, "|");
+		strcpy(FN, token);
 		
 		AddBSTNode(BSTnode, MTN, ZC, FN, DIM);
 	}
