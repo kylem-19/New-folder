@@ -28,11 +28,17 @@ void PrintReceipts(SNODE **StackTop)
 	}
 	else
 	{
-		STempPtr = *StackTop;
-		while (STempPtr != NULL)
+		while (*StackTop != NULL)
 		{
-			printf("receipt number: %d\n", STempPtr->ReceiptNumber);
-			printf("movie theater name: %s\n", STempPtr->MovieTheaterName);
+			printf("Receipt Number: %d\n", (*StackTop)->ReceiptNumber);
+            printf("Movie Theater Name: %s\n", (*StackTop)->MovieTheaterName);
+
+			while ((*StackTop)->TicketList != NULL)
+			{
+				ReturnAndFreeLinkedListNode(&((*StackTop)->TicketList), ticket);
+				printf("Ticket: %s\n", ticket);
+			}
+			pop(StackTop);
 		}
 	}
 }
@@ -43,6 +49,7 @@ BNODE *PickAndDisplayTheater(BNODE *BSTRoot, char MovieTheaterMap[][MAXCOLS], in
 	char zip[6] = {};
 	char MyDims[6] = {};
 	char buffer[21];
+	char *token;
 	printf("\n\nPick a theater by entering the zipcode\n\n");
 				
 	// Traverse the BST in order and print out the theaters in zip code order - use InOrder()			
@@ -52,7 +59,7 @@ BNODE *PickAndDisplayTheater(BNODE *BSTRoot, char MovieTheaterMap[][MAXCOLS], in
 	printf("Enter zip \n");
 	fgets(buffer, 21, stdin);
 	// Call SearchForBNODE()
-	SearchForBNODE(MyTheater, buffer);
+	MyTheater = SearchForBNODE(BSTRoot, buffer);
 	if (MyTheater == NULL)
 	{
 		printf("Could not find that theater\n");
@@ -65,7 +72,15 @@ BNODE *PickAndDisplayTheater(BNODE *BSTRoot, char MovieTheaterMap[][MAXCOLS], in
 		*MapRow = atoi(token);
 		token = strtok(NULL, "x");
 		*MapCol = atoi(token);
-		ReadMovieTheaterFile(MovieTheaterMap, MyTheater, )
+		if (!ReadMovieTheaterFile(MovieTheaterMap, MyTheater->FileName, *MapRow, *MapCol))
+		{
+			printf("Unaable to print that seat map at this time. Check back later.\n");
+		}
+		else
+		{
+			PrintSeatMap(MovieTheaterMap, *MapRow, *MapCol);
+		}
+		return MyTheater;
 	}
 	// If theater is found, then tokenize the theater's dimensions and
 	// pass those dimensions and the MovieTheaterMap and the theater's filename
@@ -94,23 +109,24 @@ void ReadFileIntoQueue(FILE *QueueFile, QNODE **QH, QNODE **QT)
 
 void ReadFileIntoBST(FILE *BSTFile, BNODE **BSTnode)
 {
-	char *token;
-	char FileLine[20];
-	char MTN[20];
-	char ZC[20];
-	char DIM[20]; 
-	char FN[20];
+	char *token = NULL;
+	char FileLine[20] = {};
+	char MTN[40] = {};
+	char ZC[5] = {};
+	char DIM[100] = {}; 
+	char FN[100] = {};
+	BNODE ReadInFile[100] = {};
 
 	while(fgets(FileLine, sizeof(FileLine)-1, BSTFile))
 	{
 		token = strtok(FileLine, "|");
-		strcpy(MTN, FileLine);
+		ReadInFile->MovieTheaterName = malloc(strlen(token)*sizeof(char)+1);
+		strcpy(ReadInFile->MovieTheaterName, token);
+		strcpy(MTN, ReadInFile->MovieTheaterName);
 		token = strtok(NULL, "|");
+		ReadInFile->ZipCode = malloc(strlen(token)*sizeof(char)+1);
 		strcpy(ZC, token);
-		token = strtok(NULL, "|");
-		strcpy(FN, token);
-		token = strtok(NULL, "|");
-		strcpy(DIM, token);
+		
 		AddBSTNode(BSTnode, MTN, ZC, FN, DIM);
 	}
 	//	read the passed in file and tokenize each line and pass the information to AddBSTNode
