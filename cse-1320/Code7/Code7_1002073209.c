@@ -1,3 +1,4 @@
+// Kyle Moore 1002073029  Coding Assignment 7
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -11,20 +12,11 @@
 
 void PrintReceipts(SNODE **StackTop)
 {
-	SNODE *STempPtr, *SNewNode;
-	char ticket[5];
-	/* 
-	   if the StackTop is empty, the print appropriate message - see example output - 
-	   else print out the receipts.  A receipt is one node of the stack and each receipt
-	   consists of a receipt number, a movie theater name and a TicketList (a linked list
-	   of all seats sold to one customer).  Use ReturnAndFreeLinkedListNode() to traverse 
-	   the linked list stored in each stack node and display the seats and free the 
-	   linked list nodes. Each call to ReturnAndFreeLinkedListNode() brings back ONE ticket 
-	   from the linked list in the Ticket variable.  Call pop() to remove the stack node.
-	*/
-	if (StackTop == NULL)
+	char ticket[5] = {};
+
+	if (*StackTop == NULL)
 	{
-		printf("stackstop is empty\n");
+		printf("No receipts\n");
 	}
 	else
 	{
@@ -45,91 +37,90 @@ void PrintReceipts(SNODE **StackTop)
 
 BNODE *PickAndDisplayTheater(BNODE *BSTRoot, char MovieTheaterMap[][MAXCOLS], int *MapRow, int *MapCol)
 {
-	BNODE *MyTheater = NULL;
-	char zip[6] = {};
-	char MyDims[6] = {};
-	char buffer[21];
-	char *token;
-	printf("\n\nPick a theater by entering the zipcode\n\n");
-				
-	// Traverse the BST in order and print out the theaters in zip code order - use InOrder()			
-	InOrder(BSTRoot);
+    BNODE *MyTheater = NULL;
+    char zip[6] = {};
+    char MyDims[6] = {};
+    char *token = NULL;
+    printf("\n\nPick a theater by entering the zipcode\n\n");
+    InOrder(BSTRoot);
 
-	// Prompt for a zip
-	printf("Enter zip \n");
-	fgets(buffer, 21, stdin);
-	// Call SearchForBNODE()
-	MyTheater = SearchForBNODE(BSTRoot, buffer);
-	if (MyTheater == NULL)
-	{
-		printf("Could not find that theater\n");
-	}
-	
-	// If theater is not found, then print message
-	else if (MyTheater != NULL)
-	{
-		token = strtok(MyTheater->Dimensions, "x");
-		*MapRow = atoi(token);
-		token = strtok(NULL, "x");
-		*MapCol = atoi(token);
-		if (!ReadMovieTheaterFile(MovieTheaterMap, MyTheater->FileName, *MapRow, *MapCol))
-		{
-			printf("Unaable to print that seat map at this time. Check back later.\n");
-		}
-		else
-		{
-			PrintSeatMap(MovieTheaterMap, *MapRow, *MapCol);
-		}
-		return MyTheater;
-	}
-	// If theater is found, then tokenize the theater's dimensions and
-	// pass those dimensions and the MovieTheaterMap and the theater's filename
-	// to ReadMovieTheaterFile()
+    printf("Enter zip \n");
+    scanf("%s", zip);
 
-	// If ReadMovieTheaterFile() returns FALSE, then print
-	// "Unable to print that seat map at this time.  Check back later."
-	// else call PrintSeatMap()
+    MyTheater = SearchForBNODE(BSTRoot, zip);
+    if (MyTheater == NULL)
+    {
+        printf("Could not find that theater\n");
+        return MyTheater;
+    }
 
-	// return the found theater
-}	
+    else if (MyTheater != NULL)
+    {
+        if (*MapRow == 0 && *MapCol == 0)
+        {
+            token = strtok(MyTheater->Dimensions, "x");
+            *MapRow = atoi(token);
+            token = strtok(NULL, "x");
+            *MapCol = atoi(token);
+        }
+
+        if (!ReadMovieTheaterFile(MovieTheaterMap, MyTheater->FileName, *MapRow, *MapCol))
+        {
+            printf("Unable to print that seat map at this time. Check back later.\n");
+        }
+        else
+        {
+            PrintSeatMap(MovieTheaterMap, *MapRow, *MapCol);
+        }
+        return MyTheater;
+    }
+}
+
 
 void ReadFileIntoQueue(FILE *QueueFile, QNODE **QH, QNODE **QT)
 {
-	char *token;
-	char FileLine[20];
-	char FileName[20];
+	char *token = NULL;
+	char FileLine[20] = {};
+	char FileName[20] = {};
 	while(fgets(FileLine, sizeof(FileLine)-1, QueueFile))
 	{
-		token = (FileLine, " ");
+		token = strtok(FileLine, "");
 		strcpy(FileName, token);
 		enQueue(FileName, QH, QT);
 	}
-	//	read the passed in file and calls enQueue for each name in the file
 }
 
 void ReadFileIntoBST(FILE *BSTFile, BNODE **BSTnode)
 {
 	char *token = NULL;
-	char FileLine[20] = {};
-	char MTN[40] = {};
-	char ZC[5] = {};
+	char FileLine[100] = {};
+	char *MTN = NULL;
+	char *ZC = NULL;
 	char DIM[100] = {}; 
 	char FN[100] = {};
 
 	while(fgets(FileLine, sizeof(FileLine)-1, BSTFile))
 	{
 		token = strtok(FileLine, "|");
+        MTN = malloc(strlen(token) + 1);
 		strcpy(MTN, token);
-		token = strtok(NULL, "|");
-		strcpy(ZC, token);
-		token = strtok(NULL, "|");
-		strcpy(DIM, token);
-		token = strtok(NULL, "|");
-		strcpy(FN, token);
+        
+        token = strtok(NULL, "|");
+        ZC = malloc(strlen(token) + 1);
+        strcpy(ZC, token);
+
+        token = strtok(NULL, "|");
+        strncpy(FN, token, sizeof(FN) - 1);
+        FN[sizeof(FN) - 1] = '\0';
+        
+        token = strtok(NULL, "|");
+        strncpy(DIM, token, sizeof(DIM) - 1);
+        DIM[sizeof(DIM) - 1] = '\0';
 		
 		AddBSTNode(BSTnode, MTN, ZC, FN, DIM);
 	}
-	//	read the passed in file and tokenize each line and pass the information to AddBSTNode
+	free(MTN);
+	free(ZC);
 }
 
 void get_command_line_parameter(char *argv[], char ParamName[], char ParamValue[])
@@ -199,7 +190,7 @@ int main(int argc, char *argv[])
 	get_command_line_parameter(argv, "ZIPFILE=", zipfilename);
 	get_command_line_parameter(argv, "RECEIPTNUMBER=", arg_value);
 	ReceiptNumber = atoi(arg_value);
-		
+	
 	queueFile = fopen(queuefilename, "r");
 	if (queueFile == NULL)
 	{
@@ -287,6 +278,6 @@ int main(int argc, char *argv[])
 	
 	printf("Good job - you sold tickets to all of the customers in line.\n");
 	PrintReceipts(&StackTop);
-	
+
 	return 0;
 }
