@@ -1,0 +1,3 @@
+Tacos|Flamin' Hot Locos Tacos|Beef, Lettuce, Sour Cream, Tomatoes
+Tacos|Flamin' Hot Locos Tacos|Beef, Lettuce, Sour Cream, Tomatoes, Cheese, Peppers
+Burritos|Super Large Bean Burrito|Beef, Beans, Lettuce, Sour Cream, Red Peppers
